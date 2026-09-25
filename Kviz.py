@@ -329,8 +329,8 @@ try:
 
     # --- QR KÓD NA ÚPLNÉM SPODKU STRÁNKY PRO VŠECHNY ---
     st.markdown("---")
-    st.markdown("<h3 style='text-align: center; color: #fca311;'>📱 Sdílejte kvíz s ostatními!</h3>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align: center; color: #aaaaaa;'>Naskenujte QR kód mobilem a ukažte ho u vedlejšího stolu.</p>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: #fca311;'>📱 Pro zobrazení výsledků naskenuj!</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #aaaaaa;'>Nech naskenovat qr kod souseda.</p>", unsafe_allow_html=True)
     
     # Vycentrování QR kódu pomocí sloupců
     q_col1, q_col2, q_col3 = st.columns([1, 1, 1])

@@ -143,12 +143,12 @@ st.markdown("""
 
 AKTUALNI_URL = nacti_odkaz()
 
-# Zjištění reálné webové adresy aplikace, na které běží
+# Zjištění reálné webové adresy aplikace
 app_url = st.context.headers.get("Host", "")
 if app_url:
     app_url = f"https://{app_url}"
 else:
-    app_url = "https://rozsossky-kviz.streamlit.app" # Záložní odkaz, pokud by hlavička chyběla
+    app_url = "https://rozsossky-kviz.streamlit.app"
 
 # --- TAJNÁ ADMINISTRACE V POSTRANNÍM PANELU ---
 with st.sidebar:
@@ -167,12 +167,6 @@ with st.sidebar:
                 st.cache_data.clear()
                 st.success("Nový kvíz byl úspěšně nastaven!")
                 st.rerun()
-                
-        st.markdown("---")
-        st.markdown("#### 📱 Přístupový QR kód")
-        st.write("Tento QR kód odkazuje na vaši aplikaci:")
-        qr_bytes = generuj_qr_kod(app_url)
-        st.image(qr_bytes, width=200, caption="Naskenujte pro výsledky")
 
 st.title("🏆 Rozsošský kvíz")
 
@@ -288,7 +282,7 @@ try:
                     {top_row_html}
                     {bottom_row_html}
                 </div>
-                <div class="team-score">{celkem_text} b.</div>
+                <div class="team-score">{celkem_text}</div>
             </div>
             <div class="rounds-container">
                 <div class="round-box">
@@ -332,6 +326,17 @@ try:
         
         html = html.replace('\n', ' ')
         st.markdown(html, unsafe_allow_html=True)
+
+    # --- QR KÓD NA ÚPLNÉM SPODKU STRÁNKY PRO VŠECHNY ---
+    st.markdown("---")
+    st.markdown("<h3 style='text-align: center; color: #fca311;'>📱 Sdílejte kvíz s ostatními!</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #aaaaaa;'>Naskenujte QR kód mobilem a ukažte ho u vedlejšího stolu.</p>", unsafe_allow_html=True)
+    
+    # Vycentrování QR kódu pomocí sloupců
+    q_col1, q_col2, q_col3 = st.columns([1, 1, 1])
+    with q_col2:
+        qr_bytes = generuj_qr_kod(app_url)
+        st.image(qr_bytes, use_container_width=True)
 
 except Exception as e:
     st.error(f"Nepodařilo se načíst aktuální výsledky. Detail: {e}")
